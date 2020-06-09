@@ -6,6 +6,7 @@ inputs:
     description: |
       'Version of Bazel we would like to install (default: 2.2.0)'
     default: '2.2.0'
+
 runs:
   using: 'node12'
   main: 'dist/index.js'
