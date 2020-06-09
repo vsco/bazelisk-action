@@ -9,6 +9,7 @@ async function run() {
     const version = core.getInput('version', { required : true });
     const bazeliskPath = 
       await tc.downloadTool(`https://github.com/bazelbuild/bazel/releases/download/${version}/bazel_${version}-linux-x86_64.deb`);
+    await exec.exec('su');
     await exec.exec('dpkg', ['--force-all', '-i', `bazel_${version}-linux-x86_64.deb`]);
 
   } catch (err) {
