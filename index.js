@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const run = require('./src/index');
 
-(async => {
+(async () => {
   try {
     await run();
   } catch (err) {

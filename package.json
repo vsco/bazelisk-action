@@ -9,7 +9,9 @@
     "@actions/io": "^1.0.2",
     "@actions/tool-cache": "^1.5.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@zeit/ncc": "^0.22.3"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
