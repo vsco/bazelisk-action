@@ -1,0 +1,19 @@
+{
+  "name": "bazelisk-action",
+  "version": "1.0.0",
+  "description": "Github Action for Bazelisk",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vsco/bazelisk-action.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vsco/bazelisk-action/issues"
+  },
+  "homepage": "https://github.com/vsco/bazelisk-action#readme"
+}
