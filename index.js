@@ -1,5 +1,5 @@
 const core = require('@actions/core');
-const run = require('./src/index.js')
+const run = require('./src/index');
 
 (async => {
   try {
