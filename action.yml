@@ -4,8 +4,11 @@ description: 'Install Bazel via Bazelisk and run commands'
 inputs:
   version:
     description: |
-      'Version of Bazel we would like to install (default: 2.2.0)'
-    default: '2.2.0'
+      'Version of Bazelisk we would like to install (default: 1.5.0)'
+    default: '1.5.0'
+  bazel-install-path:
+    description: 'Installation path for Bazelisk binaries (default: ./.local/bin)'
+    default: './.local/bin'
 
 runs:
   using: 'node12'

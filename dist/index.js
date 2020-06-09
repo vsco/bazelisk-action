@@ -4709,15 +4709,27 @@ const core = __webpack_require__(470);
 const exec = __webpack_require__(986);
 const io = __webpack_require__(1);
 const tc = __webpack_require__(533);
-const GITHUB_WORKSPACE = process.env.GITHUB_WORKSPACE;
 
 async function run() {
   try {
-    const version = core.getInput('version', { required : true });
-    const bazeliskPath = 
-      await tc.downloadTool(`https://github.com/bazelbuild/bazel/releases/download/${version}/bazel_${version}-linux-x86_64.deb`);
-    await exec.exec('dpkg', ['--force-all', '-i', `bazel_${version}-linux-x86_64.deb`]);
+    const version =
+      core.getInput('version', { required : true });
+    const bazelBinPath =
+      core.getInput('bazel-install-path', { required : true });
 
+    const bazeliskPath =
+      await tc.downloadTool(`https://github.com/bazelbuild/bazelisk/releases/download/v${version}/bazelisk-linux-amd64`);
+    core.debug('Finished downloading to bazeliskPath');
+
+    // Create directory, move into directory, chmod +x bazel, and add to path.
+    await io.mkdirP(bazelBinPath);
+    await io.mv(bazeliskPath, `${bazelBinPath}/bazel`);
+    await exec.exec('chmod', ['+x', `${bazelBinPath}/bazel`]);
+    core.debug('Chmodded!')
+    await core.addPath(`${bazelBinPath}/bazel`);
+    core.debug('Added to path:\n');
+    core.debug(process.env.PATH);
+    
   } catch (err) {
     core.error(err);
     throw new Error(err);
