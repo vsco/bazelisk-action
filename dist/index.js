@@ -4717,9 +4717,11 @@ async function run() {
       core.getInput('version', { required : true });
     const bazelBinPath =
       core.getInput('bazel-install-path', { required : true });
+    const os =
+      core.getInput('os', { required : true });
 
     const bazeliskPath =
-      await tc.downloadTool(`https://github.com/bazelbuild/bazelisk/releases/download/v${version}/bazelisk-linux-amd64`);
+      await tc.downloadTool(`https://github.com/bazelbuild/bazelisk/releases/download/v${version}/bazelisk-${os}-amd64`);
     core.debug('Successfully downloaded binary to bazeliskPath');
 
     // Create directory, move into directory, chmod +x bazel, and add to path.
