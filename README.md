@@ -20,6 +20,9 @@ jobs:
         # [required]
         # Install path for Bazelisk binaries, defaults to ./.local/bin
         bazel-install-path: './.local/bin'
+        # [required]
+        # The OS of the system that wishes to install Bazelisk. Can be 'darwin' or 'linux'
+        os: 'linux'
 ```
 
 ## License
