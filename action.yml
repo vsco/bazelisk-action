@@ -9,6 +9,9 @@ inputs:
   bazel-install-path:
     description: 'Installation path for Bazelisk binaries (default: ./.local/bin)'
     default: './.local/bin'
+  os:
+    description: 'The type of operating system the system is using, can be "darwin" or "linux" (default: linux)'
+    default: 'linux'
 
 runs:
   using: 'node12'
