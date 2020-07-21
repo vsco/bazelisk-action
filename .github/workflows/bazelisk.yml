@@ -1,0 +1,25 @@
+name: validate action
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  instal-bazelisk:
+    strategy:
+      matrix:
+        os: ["ubuntu-latest", "macos-latest"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      # validate the action works with "default parameters"
+      - name: use vsco/bazelisk-action
+        uses: ./
+        with:
+          os: ${{ runner.os }}
+      - name: Validate bazel install
+        run: |
+          touch WORKSPACE
+          bazel info
