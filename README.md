@@ -10,7 +10,6 @@ jobs:
   steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
     - name: Install Bazelisk
       uses: vsco/bazelisk-action@v1.0.0
       with:
@@ -21,7 +20,8 @@ jobs:
         # Install path for Bazelisk binaries, defaults to ./.local/bin
         bazel-install-path: './.local/bin'
         # [required]
-        # The OS of the system that wishes to install Bazelisk. Can be 'darwin' or 'linux'
+        # The OS of the system that wishes to install Bazelisk.
+        # acceptable values (case-insensitive): ['linux', 'darwin', 'macos']
         os: 'linux'
 ```
 
