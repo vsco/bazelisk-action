@@ -2,7 +2,6 @@ const core = require('@actions/core');
 const exec = require('@actions/exec');
 const io = require('@actions/io');
 const tc = require('@actions/tool-cache');
-const os = require('os');
 const util = require('util')
 
 async function run() {
@@ -22,13 +21,18 @@ async function run() {
       core.getInput('bazel-install-path', { required : true });
     core.debug(util.format('bazel-install-path: %s', bazelBinPath));
 
+    const os =
+      core.getInput('os', { required : true })
+    core.debug(util.format('os: %s', os));
+
     let bazeliskBinaryURL = ''
-    switch (os.platform()) {
+    switch (util.format("%s", os).toLowerCase()) {
       case 'darwin':
+      case 'macos':
         bazeliskBinaryURL =
           util.format('%s/v%s/bazelisk-darwin-amd64', BASE_DOWNLOAD_URL, version)
         break;
-      case 'win32':
+      case 'windows':
         bazeliskBinaryURL =
           util.format('%s/v%s/bazelisk-windows-amd64.exe', BASE_DOWNLOAD_URL, version)
         break;
