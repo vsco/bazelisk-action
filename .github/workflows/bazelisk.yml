@@ -17,6 +17,8 @@ jobs:
       # validate the action works with "default parameters"
       - name: use vsco/bazelisk-action
         uses: ./
+        with:
+          os: ${{ runner.os }}
       - name: Validate bazel install
         run: |
           touch WORKSPACE

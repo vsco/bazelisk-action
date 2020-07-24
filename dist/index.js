@@ -4709,7 +4709,6 @@ const core = __webpack_require__(470);
 const exec = __webpack_require__(986);
 const io = __webpack_require__(1);
 const tc = __webpack_require__(533);
-const os = __webpack_require__(87);
 const util = __webpack_require__(669)
 
 async function run() {
@@ -4729,13 +4728,18 @@ async function run() {
       core.getInput('bazel-install-path', { required : true });
     core.debug(util.format('bazel-install-path: %s', bazelBinPath));
 
+    const os =
+      core.getInput('os', { required : true })
+    core.debug(util.format('os: %s', os));
+
     let bazeliskBinaryURL = ''
-    switch (os.platform()) {
+    switch (util.format("%s", os).toLowerCase()) {
       case 'darwin':
+      case 'macos':
         bazeliskBinaryURL =
           util.format('%s/v%s/bazelisk-darwin-amd64', BASE_DOWNLOAD_URL, version)
         break;
-      case 'win32':
+      case 'windows':
         bazeliskBinaryURL =
           util.format('%s/v%s/bazelisk-windows-amd64.exe', BASE_DOWNLOAD_URL, version)
         break;
