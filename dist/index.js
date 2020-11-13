@@ -40,7 +40,7 @@ module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(104);
+/******/ 		return __webpack_require__(325);
 /******/ 	};
 /******/
 /******/ 	// run startup
@@ -1139,23 +1139,6 @@ function issueCommand(command, message) {
 }
 exports.issueCommand = issueCommand;
 //# sourceMappingURL=file-command.js.map
-
-/***/ }),
-
-/***/ 104:
-/***/ (function(__unusedmodule, __unusedexports, __webpack_require__) {
-
-const core = __webpack_require__(470);
-const run = __webpack_require__(676);
-
-(async () => {
-  try {
-    await run();
-  } catch (err) {
-    core.setFailed(error.message);
-  }
-})();
-
 
 /***/ }),
 
@@ -3063,6 +3046,72 @@ function coerce (version, options) {
 
 /***/ }),
 
+/***/ 325:
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const core = __importStar(__webpack_require__(470));
+const exec = __importStar(__webpack_require__(986));
+const io = __importStar(__webpack_require__(1));
+const tc = __importStar(__webpack_require__(533));
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            core.debug('Begin Bazelisk Action');
+            const os = core.getInput('os', { required: true });
+            const version = core.getInput('version', { required: true });
+            const bazelBinPath = core.getInput('bazel-install-path', {
+                required: true
+            });
+            const bazeliskPath = yield tc.downloadTool(`https://github.com/bazelbuild/bazelisk/releases/download/v${version}/bazelisk-${os}-amd64`);
+            core.debug('Successfully downloaded binary to bazeliskPath');
+            // Create directory, move into directory, chmod +x bazel, and add to path.
+            yield io.mkdirP(bazelBinPath);
+            yield io.mv(bazeliskPath, `${bazelBinPath}/bazel`);
+            yield exec.exec('chmod', ['+x', `${bazelBinPath}/bazel`]);
+            yield core.addPath(`${bazelBinPath}`);
+            core.debug(`Added ${bazelBinPath}/bazel to PATH`);
+        }
+        catch (error) {
+            core.setFailed(error.message);
+        }
+    });
+}
+run();
+
+
+/***/ }),
+
 /***/ 357:
 /***/ (function(module) {
 
@@ -4806,46 +4855,6 @@ function isUnixExecutable(stats) {
         ((stats.mode & 64) > 0 && stats.uid === process.getuid()));
 }
 //# sourceMappingURL=io-util.js.map
-
-/***/ }),
-
-/***/ 676:
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const core = __webpack_require__(470);
-const exec = __webpack_require__(986);
-const io = __webpack_require__(1);
-const tc = __webpack_require__(533);
-
-async function run() {
-  try {
-    core.debug('Begin Bazelisk Action');
-    const version =
-      core.getInput('version', { required : true });
-    const bazelBinPath =
-      core.getInput('bazel-install-path', { required : true });
-    const os =
-      core.getInput('os', { required : true });
-
-    const bazeliskPath =
-      await tc.downloadTool(`https://github.com/bazelbuild/bazelisk/releases/download/v${version}/bazelisk-${os}-amd64`);
-    core.debug('Successfully downloaded binary to bazeliskPath');
-
-    // Create directory, move into directory, chmod +x bazel, and add to path.
-    await io.mkdirP(bazelBinPath);
-    await io.mv(bazeliskPath, `${bazelBinPath}/bazel`);
-    await exec.exec('chmod', ['+x', `${bazelBinPath}/bazel`]);
-    await core.addPath(`${bazelBinPath}`);
-    core.debug(`Added ${bazelBinPath}/bazel to PATH`);
-    
-  } catch (err) {
-    core.error(err);
-    throw new Error(err);
-  }
-}
-
-module.exports = run;
-
 
 /***/ }),
 
