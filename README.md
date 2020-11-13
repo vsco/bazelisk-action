@@ -1,6 +1,6 @@
 # bazelisk-action
 
-Installs bazelisk as a Github Action.
+Installs bazelisk as a GitHub Action.
 
 ## Usage
 
@@ -10,7 +10,7 @@ jobs:
   steps:
     - name: Checkout
       uses: actions/checkout@v2
-      
+
     - name: Install Bazelisk
       uses: vsco/bazelisk-action@v1.0.0
       with:
@@ -27,5 +27,5 @@ jobs:
 
 ## License
 
-The Javascript Github Action and any documentation is released under the MIT License.
+The TypeScript GitHub Action and any documentation is released under the MIT License.
 Check LICENSE.md for more info.
