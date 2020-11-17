@@ -21,7 +21,7 @@ async function run() {
     await io.mkdirP(bazelBinPath);
     await io.mv(bazeliskPath, `${bazelBinPath}/bazel`);
     await exec.exec('chmod', ['+x', `${bazelBinPath}/bazel`]);
-    await core.addPath(`${bazelBinPath}`);
+    await exec.exec('echo',[`${bazelBinPath}`',">> $GITHUB_PATH"]);
     core.debug(`Added ${bazelBinPath}/bazel to PATH`);
     
   } catch (err) {
