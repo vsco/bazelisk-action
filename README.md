@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Install Bazelisk
-      uses: vsco/bazelisk-action@v1.1
+      uses: vsco/bazelisk-action@1.1
       with:
         # [required]
         # Version of Bazelisk we would like to install, defaults to 1.5.0
